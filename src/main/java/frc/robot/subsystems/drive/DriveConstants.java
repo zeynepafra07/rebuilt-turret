@@ -1,15 +1,9 @@
-// Copyright 2021-2025 FRC 6328
+// Copyright (c) 2025-2026 Littleton Robotics
 // http://github.com/Mechanical-Advantage
 //
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// version 3 as published by the Free Software Foundation or
-// available in the root directory of this project.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// Use of this source code is governed by an MIT-style
+// license that can be found in the LICENSE file at
+// the root directory of this project.
 
 package frc.robot.subsystems.drive;
 
@@ -34,9 +28,9 @@ public class DriveConstants {
     };
 
     // Zeroed rotation values for each module, see setup instructions
-    public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-1.77);
-    public static final Rotation2d frontRightZeroRotation = new Rotation2d(-2.7);
-    public static final Rotation2d backLeftZeroRotation = new Rotation2d(-2.49);
+    public static final Rotation2d frontLeftZeroRotation = new Rotation2d(0);
+    public static final Rotation2d frontRightZeroRotation = new Rotation2d(0);
+    public static final Rotation2d backLeftZeroRotation = new Rotation2d(0);
     public static final Rotation2d backRightZeroRotation = new Rotation2d(-1.14);
 
     // Device CAN IDs

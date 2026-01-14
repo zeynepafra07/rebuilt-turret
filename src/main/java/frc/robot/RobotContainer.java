@@ -1,15 +1,9 @@
-// Copyright 2021-2025 FRC 6328
+// Copyright (c) 2025-2026 Littleton Robotics
 // http://github.com/Mechanical-Advantage
 //
-// This program is free software; you can redistribute it and/or
-// modify it under the terms of the GNU General Public License
-// version 3 as published by the Free Software Foundation or
-// available in the root directory of this project.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
+// Use of this source code is governed by an MIT-style
+// license that can be found in the LICENSE file at
+// the root directory of this project.
 
 package frc.robot;
 
@@ -64,8 +58,10 @@ public class RobotContainer {
                         new ModuleIOSpark(3));
                 //   vision = new Vision(
                 //           drive::addVisionMeasurement,
-                //         new VisionIOPhotonVision(VisionConstants.camera0Name, VisionConstants.robotToCamera0),
-                //       new VisionIOPhotonVision(VisionConstants.camera1Name, VisionConstants.robotToCamera1));
+                //         new VisionIOPhotonVision(VisionConstants.camera0Name,
+                // VisionConstants.robotToCamera0),
+                //       new VisionIOPhotonVision(VisionConstants.camera1Name,
+                // VisionConstants.robotToCamera1));
                 break;
 
             case SIM:

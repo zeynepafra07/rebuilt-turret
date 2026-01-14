@@ -1,6 +1,6 @@
 plugins {
     id "java"
-    id "edu.wpi.first.GradleRIO" version "2025.3.2"
+    id "edu.wpi.first.GradleRIO" version "2026.1.1"
     id "com.peterabeles.gversion" version "1.10"
     id("com.diffplug.spotless") version "7.0.0.BETA4"
 }
@@ -145,7 +145,7 @@ gversion {
     classPackage = "frc.robot"
     className    = "BuildConstants"
     dateFormat   = "yyyy-MM-dd HH:mm:ss z"
-    timeZone     = "America/New_York"
+    timeZone     = "Turkey/Istanbul"
     indent       = "  "
 }
 
@@ -184,42 +184,42 @@ createVersionFile.dependsOn(eventDeploy)
 
 // Spotless formatting
 project.compileJava.dependsOn(spotlessApply)
-spotless {
-    java {
-        target fileTree('.') {
-            include '**/*.java'
-            exclude '**/build/**', '**/build-*/**'
-        }
-        toggleOffOn()
-        palantirJavaFormat('2.39.0').formatJavadoc(true)
-        removeUnusedImports()
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    groovyGradle {
-        target fileTree(".") {
-            include "**/*.gradle"
-            exclude "**/build/**", "**/build-*/**"
-        }
-        greclipse()
-        indentWithSpaces(4)
-        trimTrailingWhitespace()
-        endWithNewline()
-    }
-    json {
-        target fileTree(".") {
-            include "**/*.json"
-            exclude "**/build/**", "**/build-*/**"
-        }
-        gson().indentWithSpaces(2)
-    }
-    format "misc", {
-        target fileTree(".") {
-            include "**/*.md", "**/.gitignore"
-            exclude "**/build/**", "**/build-*/**"
-        }
-        trimTrailingWhitespace()
-        indentWithSpaces(2)
-        endWithNewline()
-    }
-}
+//spotless {
+  //  java {
+    //    target fileTree('.') {
+      //      include '**/*.java'
+        //    exclude '**/build/**', '**/build-*/**'
+//        }
+//        toggleOffOn()
+  //      palantirJavaFormat('2.39.0').formatJavadoc(true)
+    //    removeUnusedImports()
+      //  trimTrailingWhitespace()
+//        endWithNewline()
+  //  }
+    //groovyGradle {
+      //  target fileTree(".") {
+        //    include "**/*.gradle"
+          //  exclude "**/build/**", "**/build-*/**"
+       // }
+        //greclipse()
+ //       indentWithSpaces(4)
+   //     trimTrailingWhitespace()
+     //   endWithNewline()
+//    }
+  //  json {
+    //    target fileTree(".") {
+      //      include "**/*.json"
+        //    exclude "**/build/**", "**/build-*/**"
+//        }
+  //      gson().indentWithSpaces(2)
+    //}
+//    format "misc", {
+  //      target fileTree(".") {
+    //        include "**/*.md", "**/.gitignore"
+      //      exclude "**/build/**", "**/build-*/**"
+        //}
+        //trimTrailingWhitespace()
+      //  indentWithSpaces(2)
+     //   endWithNewline()
+ //   }
+//}
