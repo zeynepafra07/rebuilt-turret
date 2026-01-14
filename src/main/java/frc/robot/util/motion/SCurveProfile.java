@@ -1,25 +1,17 @@
 package frc.robot.util.motion;
 
 /**
- * A jerk-limited S-curve motion profile implementation, equivalent to Phoenix 6
- * Motion Magic.
- * 
- * Jerk limiting improves mechanical longevity and control stability by:
- * 1. Reducing mechanical stress: Smooth acceleration ramps prevent shock loads
- * on drivetrains.
- * 2. Reducing vibration: High-frequency oscillations are minimized by limiting
- * the rate of change of acceleration.
- * 3. Improving tracking: PID loops can track smooth reference curves more
- * accurately than trapezoidal ones.
- * 
- * The 7-Phase S-Curve Logic:
- * Phase 1: Jerk Up (+J) - Accel ramps to aMax.
- * Phase 2: Constant Accel (+aMax) - Velocity ramps linearly.
- * Phase 3: Jerk Down (-J) - Accel ramps to 0. Velocity hits peak.
- * Phase 4: Cruise (0 Accel) - Constant velocity.
- * Phase 5: Jerk Down (-J) - Accel ramps to -aMax.
- * Phase 6: Constant Decel (-aMax) - Velocity ramps down linearly.
- * Phase 7: Jerk Up (+J) - Accel ramps to 0. Velocity hits 0 at target.
+ * A jerk-limited S-curve motion profile implementation, equivalent to Phoenix 6 Motion Magic.
+ *
+ * <p>Jerk limiting improves mechanical longevity and control stability by: 1. Reducing mechanical stress: Smooth
+ * acceleration ramps prevent shock loads on drivetrains. 2. Reducing vibration: High-frequency oscillations are
+ * minimized by limiting the rate of change of acceleration. 3. Improving tracking: PID loops can track smooth reference
+ * curves more accurately than trapezoidal ones.
+ *
+ * <p>The 7-Phase S-Curve Logic: Phase 1: Jerk Up (+J) - Accel ramps to aMax. Phase 2: Constant Accel (+aMax) - Velocity
+ * ramps linearly. Phase 3: Jerk Down (-J) - Accel ramps to 0. Velocity hits peak. Phase 4: Cruise (0 Accel) - Constant
+ * velocity. Phase 5: Jerk Down (-J) - Accel ramps to -aMax. Phase 6: Constant Decel (-aMax) - Velocity ramps down
+ * linearly. Phase 7: Jerk Up (+J) - Accel ramps to 0. Velocity hits 0 at target.
  */
 public class SCurveProfile {
     public static class State {

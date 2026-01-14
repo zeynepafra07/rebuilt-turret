@@ -4,21 +4,13 @@ import edu.wpi.first.math.MathUtil;
 
 /**
  * A manual implementation of an Advanced Exponential PID controller for WPILib.
- * 
- * Design Rationale:
- * - Exponential scaling is applied ONLY to the Proportional (P) term.
- * - Why? The P term provides the immediate response to error. Exponential
- * scaling here
- * allows for aggressive correction of large errors while remaining extremely
- * smooth
- * and precise near the setpoint.
- * - Why not I or D? The Integral (I) term is for steady-state error correction;
- * non-linear
- * integration (exponential) can cause the accumulator to balloon or shrink
- * unpredictably,
- * leading to limit cycles. The Derivative (D) term provides damping; non-linear
- * damping
- * can cause erratic oscillations during high-speed transitions.
+ *
+ * <p>Design Rationale: - Exponential scaling is applied ONLY to the Proportional (P) term. - Why? The P term provides
+ * the immediate response to error. Exponential scaling here allows for aggressive correction of large errors while
+ * remaining extremely smooth and precise near the setpoint. - Why not I or D? The Integral (I) term is for steady-state
+ * error correction; non-linear integration (exponential) can cause the accumulator to balloon or shrink unpredictably,
+ * leading to limit cycles. The Derivative (D) term provides damping; non-linear damping can cause erratic oscillations
+ * during high-speed transitions.
  */
 public class ExponentialPID {
     private double m_kp;
@@ -39,12 +31,11 @@ public class ExponentialPID {
 
     /**
      * Constructs a new Advanced Exponential PID controller.
-     * 
-     * @param kp       Proportional gain
-     * @param ki       Integral gain
-     * @param kd       Derivative gain
-     * @param exponent Exponent for the P term (1.0 = linear PID, >1.0 =
-     *                 exponential)
+     *
+     * @param kp Proportional gain
+     * @param ki Integral gain
+     * @param kd Derivative gain
+     * @param exponent Exponent for the P term (1.0 = linear PID, >1.0 = exponential)
      */
     public ExponentialPID(double kp, double ki, double kd, double exponent) {
         m_kp = kp;
@@ -56,7 +47,7 @@ public class ExponentialPID {
 
     /**
      * Sets the desired target value.
-     * 
+     *
      * @param setpoint The target setpoint
      */
     public void setSetpoint(double setpoint) {
@@ -64,8 +55,8 @@ public class ExponentialPID {
     }
 
     /**
-     * Resets the controller state (integrator and derivative memory).
-     * Should be called when the mechanism starts a new motion.
+     * Resets the controller state (integrator and derivative memory). Should be called when the mechanism starts a new
+     * motion.
      */
     public void reset() {
         m_totalError = 0;
@@ -75,7 +66,7 @@ public class ExponentialPID {
 
     /**
      * Configures the range of the internal integrator to prevent windup.
-     * 
+     *
      * @param min Minimum accumulation
      * @param max Maximum accumulation
      */
@@ -86,7 +77,7 @@ public class ExponentialPID {
 
     /**
      * Calculates the control output based on the current measurement.
-     * 
+     *
      * @param measurement The current process variable (e.g., encoder value)
      * @return Output clamped to [-1.0, 1.0]
      */

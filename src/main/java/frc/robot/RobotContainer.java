@@ -30,11 +30,6 @@ import frc.robot.subsystems.drive.GyroIOPigeon2;
 import frc.robot.subsystems.drive.ModuleIO;
 import frc.robot.subsystems.drive.ModuleIOSim;
 import frc.robot.subsystems.drive.ModuleIOSpark;
-import frc.robot.subsystems.vision.Vision;
-import frc.robot.subsystems.vision.VisionConstants;
-import frc.robot.subsystems.vision.VisionIO;
-import frc.robot.subsystems.vision.VisionIOPhotonVision;
-import frc.robot.subsystems.vision.VisionIOPhotonVisionSim;
 import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
 
 /**
@@ -44,7 +39,7 @@ import org.littletonrobotics.junction.networktables.LoggedDashboardChooser;
  */
 public class RobotContainer {
 
-    private final Vision vision;
+    //  private final Vision vision;
 
     // Subsystems
     private final Drive drive;
@@ -67,29 +62,29 @@ public class RobotContainer {
                         new ModuleIOSpark(1),
                         new ModuleIOSpark(2),
                         new ModuleIOSpark(3));
-                vision = new Vision(
-                        drive::addVisionMeasurement,
-                        new VisionIOPhotonVision(VisionConstants.camera0Name, VisionConstants.robotToCamera0),
-                        new VisionIOPhotonVision(VisionConstants.camera1Name, VisionConstants.robotToCamera1));
+                //   vision = new Vision(
+                //           drive::addVisionMeasurement,
+                //         new VisionIOPhotonVision(VisionConstants.camera0Name, VisionConstants.robotToCamera0),
+                //       new VisionIOPhotonVision(VisionConstants.camera1Name, VisionConstants.robotToCamera1));
                 break;
 
             case SIM:
                 // Sim robot, instantiate physics sim IO implementations
                 drive = new Drive(
                         new GyroIO() {}, new ModuleIOSim(), new ModuleIOSim(), new ModuleIOSim(), new ModuleIOSim());
-                vision = new Vision(
-                        drive::addVisionMeasurement,
-                        new VisionIOPhotonVisionSim(
-                                VisionConstants.camera0Name, VisionConstants.robotToCamera0, drive::getPose),
-                        new VisionIOPhotonVisionSim(
-                                VisionConstants.camera1Name, VisionConstants.robotToCamera1, drive::getPose));
+                //   vision = new Vision(
+                //         drive::addVisionMeasurement,
+                //       new VisionIOPhotonVisionSim(
+                //             VisionConstants.camera0Name, VisionConstants.robotToCamera0, drive::getPose),
+                //   new VisionIOPhotonVisionSim(
+                //         VisionConstants.camera1Name, VisionConstants.robotToCamera1, drive::getPose));
                 break;
 
             default:
                 // Replayed robot, disable IO implementations
                 drive = new Drive(
                         new GyroIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {}, new ModuleIO() {});
-                vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
+                //   vision = new Vision(drive::addVisionMeasurement, new VisionIO() {});
                 break;
         }
 
@@ -118,7 +113,7 @@ public class RobotContainer {
     private void configureButtonBindings() {
         // Default command, normal field-relative drive
         drive.setDefaultCommand(DriveCommands.joystickDrive(
-                drive, () -> -controller.getLeftY(), () -> -controller.getLeftX(), () -> -controller.getRightX()));
+                drive, () -> -controller.getLeftY(), () -> -controller.getLeftX(), () -> -controller.getRawAxis(2)));
 
         // Lock to 0° when A button is held
         controller

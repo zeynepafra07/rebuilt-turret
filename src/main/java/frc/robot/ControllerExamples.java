@@ -6,9 +6,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import frc.robot.util.controller.AdvancedController;
 import frc.robot.util.controller.AdvancedController.Button;
 
-/**
- * Example class demonstrating senior-level usage of the AdvancedController.
- */
+/** Example class demonstrating senior-level usage of the AdvancedController. */
 public class ControllerExamples {
 
     // 1. Initialize controllers
@@ -26,15 +24,14 @@ public class ControllerExamples {
 
         // Double press (Fires immediately on second click, cancels single)
         // Also triggers a double-pulse rumble for tactile confirmation.
-        xBinding.doublePress().onTrue(
-                new InstantCommand(() -> System.out.println("High Gear Set"))
+        xBinding.doublePress()
+                .onTrue(new InstantCommand(() -> System.out.println("High Gear Set"))
                         .alongWith(driver.rumblePulse(1.0, 0.1, 2)));
 
         // --- SCENARIO 2: Chord (Simultaneous Press) ---
         // Goal: Emergency reset requires two hands to prevent accidental activation.
         driver.chord(Button.kLB, Button.kRB, 0.1)
-                .onTrue(new PrintCommand("!! EMERGENCY RESET !!")
-                        .alongWith(driver.rumbleOnTrue(1.0, 0.5)));
+                .onTrue(new PrintCommand("!! EMERGENCY RESET !!").alongWith(driver.rumbleOnTrue(1.0, 0.5)));
 
         // --- SCENARIO 3: Modifier (Shift) Logic ---
         // Goal: Multiply the number of available functions using a "Shift" button.

@@ -26,6 +26,7 @@ public final class Constants {
     public static final Mode simMode = Mode.SIM;
     public static final Mode currentMode = RobotBase.isReal() ? Mode.REAL : simMode;
     public static final int PDH_ID = 1;
+    public static final boolean tuningMode = true;
 
     public static class LedConstants {
         public static final int kLedPort = 9;

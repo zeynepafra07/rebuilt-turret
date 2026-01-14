@@ -13,25 +13,28 @@ import java.util.Map;
 
 /**
  * Senior-level controller utility for FRC.
- * 
- * Features:
- * 1. Exclusive Multi-Press: Resolves conflicts between single and double
- * clicks.
- * 2. Simultaneous Chords: Triggers based on multiple buttons pressed together.
- * 3. Modifier Views: Shift-style button logic.
- * 4. Decoupled Rumble: Implements RumbleOutput for subsystem interaction.
- * 
- * Design Philosophy:
- * All logic is evaluated inside BooleanSuppliers chained to Triggers.
- * This ensures WPILib's CommandScheduler handles the "update loop" for us.
+ *
+ * <p>Features: 1. Exclusive Multi-Press: Resolves conflicts between single and double clicks. 2. Simultaneous Chords:
+ * Triggers based on multiple buttons pressed together. 3. Modifier Views: Shift-style button logic. 4. Decoupled
+ * Rumble: Implements RumbleOutput for subsystem interaction.
+ *
+ * <p>Design Philosophy: All logic is evaluated inside BooleanSuppliers chained to Triggers. This ensures WPILib's
+ * CommandScheduler handles the "update loop" for us.
  */
 public class AdvancedController implements RumbleOutput {
 
     /** Unified mapping for the two most common FRC controllers. */
     public enum Button {
-        kA(1, 2), kB(2, 3), kX(3, 1), kY(4, 4),
-        kLB(5, 5), kRB(6, 6), kBack(7, 9), kStart(8, 10),
-        kLeftStick(9, 11), kRightStick(10, 12);
+        kA(1, 2),
+        kB(2, 3),
+        kX(3, 1),
+        kY(4, 4),
+        kLB(5, 5),
+        kRB(6, 6),
+        kBack(7, 9),
+        kStart(8, 10),
+        kLeftStick(9, 11),
+        kRightStick(10, 12);
 
         public final int xboxId;
         public final int ps4Id;
@@ -74,9 +77,8 @@ public class AdvancedController implements RumbleOutput {
 
     /**
      * Creates an exclusive binding for a button.
-     * 
-     * @param timeoutSeconds Window to wait for a second click before confirming a
-     *                       single click.
+     *
+     * @param timeoutSeconds Window to wait for a second click before confirming a single click.
      */
     public PressBinding bindPress(Button button, double timeoutSeconds) {
         return m_pressBindings.computeIfAbsent(button, b -> new PressBinding(b, timeoutSeconds));
@@ -84,7 +86,7 @@ public class AdvancedController implements RumbleOutput {
 
     /**
      * Creates a chord (simultaneous press) trigger.
-     * 
+     *
      * @param tolerance How closely the buttons must be pressed (rising edges).
      */
     public Trigger chord(Button a, Button b, double tolerance) {
@@ -101,10 +103,8 @@ public class AdvancedController implements RumbleOutput {
                 boolean curB = m_hid.getRawButton(idB);
                 double now = Timer.getFPGATimestamp();
 
-                if (curA && !lastA)
-                    riseA = now;
-                if (curB && !lastB)
-                    riseB = now;
+                if (curA && !lastA) riseA = now;
+                if (curB && !lastB) riseB = now;
                 lastA = curA;
                 lastB = curB;
 
@@ -113,9 +113,7 @@ public class AdvancedController implements RumbleOutput {
         });
     }
 
-    /**
-     * Returns a view that handles shift-style bindings using the provided modifier.
-     */
+    /** Returns a view that handles shift-style bindings using the provided modifier. */
     public ModifierView withModifier(Button modifier) {
         return new ModifierView(button(modifier));
     }
@@ -139,8 +137,7 @@ public class AdvancedController implements RumbleOutput {
 
         private void update() {
             double now = Timer.getFPGATimestamp();
-            if (now == lastProcessed)
-                return;
+            if (now == lastProcessed) return;
 
             boolean raw = m_hid.getRawButton(id);
             boolean edge = raw && !lastRaw;

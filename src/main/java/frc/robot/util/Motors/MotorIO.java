@@ -23,16 +23,13 @@ public interface MotorIO {
 
     record MotorIOData(boolean isConnected, int canID, ControllerType controllerType, boolean hasError) {}
 
-    enum ControllerType { 
+    enum ControllerType {
         TALON,
         SPARKMAX,
         SPARKFLEX
     }
-    
-    record Motor(ControllerType controllerType, int canID) {
 
-}
+    record Motor(int canID, ControllerType controllerType) {}
 
     public default void updateInputs(MotorIOInputs inputs) {}
-
 }

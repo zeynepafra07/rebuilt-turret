@@ -34,23 +34,23 @@ public class DriveConstants {
     };
 
     // Zeroed rotation values for each module, see setup instructions
-    public static final Rotation2d frontLeftZeroRotation = new Rotation2d(Units.degreesToRadians(106));
-    public static final Rotation2d frontRightZeroRotation = new Rotation2d(Units.degreesToRadians(28.8));
-    public static final Rotation2d backLeftZeroRotation = new Rotation2d(Units.degreesToRadians(29.6));
-    public static final Rotation2d backRightZeroRotation = new Rotation2d(Units.degreesToRadians(75.6));
+    public static final Rotation2d frontLeftZeroRotation = new Rotation2d(-1.77);
+    public static final Rotation2d frontRightZeroRotation = new Rotation2d(-2.7);
+    public static final Rotation2d backLeftZeroRotation = new Rotation2d(-2.49);
+    public static final Rotation2d backRightZeroRotation = new Rotation2d(-1.14);
 
     // Device CAN IDs
     public static final int pigeonCanId = 31;
 
-    public static final int frontLeftDriveCanId = 11;
-    public static final int backLeftDriveCanId = 13;
-    public static final int frontRightDriveCanId = 12;
-    public static final int backRightDriveCanId = 14;
+    public static final int frontLeftDriveCanId = 59;
+    public static final int backLeftDriveCanId = 14;
+    public static final int frontRightDriveCanId = 13;
+    public static final int backRightDriveCanId = 11;
 
-    public static final int frontLeftTurnCanId = 21;
-    public static final int backLeftTurnCanId = 23;
-    public static final int frontRightTurnCanId = 22;
-    public static final int backRightTurnCanId = 24;
+    public static final int frontLeftTurnCanId = 24;
+    public static final int backLeftTurnCanId = 22;
+    public static final int frontRightTurnCanId = 3;
+    public static final int backRightTurnCanId = 23;
 
     public static final int frontLeftTurnAbsId = 0;
     public static final int backLeftTurnAbsId = 2;

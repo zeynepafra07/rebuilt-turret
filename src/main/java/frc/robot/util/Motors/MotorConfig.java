@@ -1,5 +1,3 @@
 package frc.robot.util.motors;
 
-public class MotorConfig {
-    
-}
+public class MotorConfig {}
