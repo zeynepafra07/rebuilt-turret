@@ -12,6 +12,7 @@ import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig;
 import com.revrobotics.spark.config.SparkMaxConfig;
+import com.revrobotics.spark.config.MAXMotionConfig.MAXMotionPositionMode;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.SparkBase.PersistMode;
 import com.revrobotics.spark.SparkBase.ResetMode;
@@ -30,6 +31,8 @@ public class TurretIOSpark implements TurretIO {
     private final AnalogInput absEncoder;
     private final DigitalInput hallEffect;
 
+    private IdleMode idleMode;
+
     private final SparkClosedLoopController turretController;
 
     private final Debouncer turretDebouncer = new Debouncer(0.5);
@@ -39,6 +42,8 @@ public class TurretIOSpark implements TurretIO {
         turretEncoder = turretMotor.getEncoder();
         absEncoder = new AnalogInput(TurretConstants.absEncoderID);
         hallEffect = new DigitalInput(TurretConstants.hallEffectID);
+
+        idleMode = IdleMode.kBrake;
 
         turretController = turretMotor.getClosedLoopController();
 
@@ -70,29 +75,53 @@ public class TurretIOSpark implements TurretIO {
 
     @Override
     public void setPosition(double setpoint){
-        turretController.setSetpoint(setpoint, ControlType.kPosition);
+        turretController.setSetpoint(setpoint, ControlType.kMAXMotionPositionControl);
     }
 
     @Override
-    public void resetEncoder(double absolutePositionRads){
-        tryUntilOk(turretMotor, 5,() -> turretEncoder.setPosition(absolutePositionRads));
+    public void zeroEncoder(){
+        turretEncoder.setPosition(0.0);
+    }
+
+    @Override
+    public void stop(){
+        turretMotor.setVoltage(0.0);
+    }
+
+    @Override
+    public void setIdleMode(IdleMode mode){
+        idleMode = mode;
+        configure();
     }
 
     private void configure(){
         ClosedLoopConfig closedLoopConfig = new ClosedLoopConfig();
-        closedLoopConfig.pid(TurretConstants.kP, 0, TurretConstants.kD).velocityFF(TurretConstants.kV);
+        closedLoopConfig.pid(TurretConstants.kP, 0, TurretConstants.kD).velocityFF(TurretConstants.ff);
 
         SparkMaxConfig turretConfig = new SparkMaxConfig();
         turretConfig
-            .idleMode(IdleMode.kBrake)
+            .idleMode(idleMode)
             .voltageCompensation(12)
             .smartCurrentLimit(40)
             .apply(closedLoopConfig);
         turretConfig
             .encoder.positionConversionFactor(TurretConstants.positionConversionFactor)
             .velocityConversionFactor(TurretConstants.velocityConversionFactor);
+        turretConfig
+            .closedLoop.maxMotion
+            .positionMode(MAXMotionPositionMode.kMAXMotionTrapezoidal)
+            .cruiseVelocity(TurretConstants.cruiseVelocity)
+            .maxAcceleration(TurretConstants.maxAcceleration)
+            .allowedProfileError(2);
+        turretConfig
+            .softLimit
+            .forwardSoftLimit(TurretConstants.maxAngle)
+            .forwardSoftLimitEnabled(true)
+            .reverseSoftLimit(TurretConstants.minAngle)
+            .reverseSoftLimitEnabled(true);
 
-        turretMotor.configure(turretConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+        tryUntilOk(turretMotor, 5, ()->
+        turretMotor.configure(turretConfig,ResetMode.kResetSafeParameters, PersistMode.kPersistParameters));
     }
 
 }

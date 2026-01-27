@@ -2,6 +2,8 @@ package frc.robot.subsystems.turret;
 
 import org.littletonrobotics.junction.AutoLog;
 
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+
 public interface TurretIO {
     @AutoLog
     public static class TurretIOInputs{
@@ -23,7 +25,15 @@ public interface TurretIO {
     /* Set turret position */
     public default void setPosition(double setpoint){}
 
-    /* Reset the encoder */
-    public default void resetEncoder(double absolutePositionRads){}
+    /* Zero the encoder */
+    public default void zeroEncoder(){}
+
+    /* Stop the turret motor */
+    public default void stop(){}
+
+    /* Set idle mode */
+    public default void setIdleMode(IdleMode mode){}
+
+
 
 }

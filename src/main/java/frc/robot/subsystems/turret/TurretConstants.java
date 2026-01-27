@@ -5,7 +5,7 @@ import edu.wpi.first.math.system.plant.DCMotor;
 public class TurretConstants {
     public static final double kP = 0.0;
     public static final double kD = 0.0;
-    public static final double kV = 0.0;
+    public static final double ff = 0.0;
     
     public static final int turretID = 0;
     public static final int absEncoderID = 0;
@@ -18,4 +18,10 @@ public class TurretConstants {
     public static final double turretMotorReduction = 0;
 
     public static final double absolutePositionOffsetRads = 0.0;
+
+    public static final double minAngle = -270;
+    public static final double maxAngle = 270;
+
+    public static final double cruiseVelocity = 0.0;
+    public static final double maxAcceleration = 0.0;
 }
