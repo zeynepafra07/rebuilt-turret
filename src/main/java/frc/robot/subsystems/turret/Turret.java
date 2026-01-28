@@ -5,6 +5,8 @@ import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.math.filter.Debouncer;
 import edu.wpi.first.math.filter.Debouncer.DebounceType;
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
 
 
 public class Turret extends SubsystemBase {
@@ -22,6 +24,21 @@ public class Turret extends SubsystemBase {
     }
     private homeModes homeMode = homeModes.START;
     private boolean homeDone = false;
+
+    private enum botZones{
+        ALLIANCE,
+        NEUTRAL,
+        OPPONENT
+    }
+    private Pose2d botPose;
+    private Translation2d hubPose = TurretConstants.hubPose;
+    private Translation2d trenchPoseUpper = TurretConstants.trenchPoseUpper;
+    private Translation2d trenchPoseLower = TurretConstants.trenchPoseLower;
+    private double botToHubX;
+    private double botToHubY;
+    private double botToTrenchX;
+    private double botToTrenchY;
+    private botZones botZone = botZones.NEUTRAL;
 
     private enum turretModes{
         HOMING,
@@ -100,6 +117,26 @@ public class Turret extends SubsystemBase {
         
     }
 
-    
+    public void targetHub(){
+        botToHubX = hubPose.getX() - botPose.getX();
+        botToHubY = hubPose.getY() - botPose.getY();
+
+        double angleToHub = Math.atan2(botToHubY, botToHubX);
+        io.setPosition(angleToHub);
+    }
+
+    public void targetFeed(){
+        switch(botZone){
+            case ALLIANCE:
+
+                break;
+            case NEUTRAL:
+
+                break;
+            case OPPONENT:
+
+                break;
+        }
+    }
 
 }
