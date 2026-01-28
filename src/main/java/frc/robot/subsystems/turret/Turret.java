@@ -19,7 +19,7 @@ public class Turret extends SubsystemBase {
     private enum homeModes{
         START,
         MOVE_FORWARD,
-        HALL_EFFECT_SEARCH,
+        MOVE_REVERSE,
         DONE
     }
     private homeModes homeMode = homeModes.START;
@@ -95,12 +95,30 @@ public class Turret extends SubsystemBase {
                     stillCounter = 0;
                 }
                 if(stillCounter > 50){
+                        io.stop();
+                        stillCounter = 0;
+                        homeMode = homeModes.MOVE_REVERSE;
+                }
+                if(inputs.hallEffectTriggered){
                     io.stop();
-                    homeMode = homeModes.HALL_EFFECT_SEARCH;
+                    io.zeroEncoder();
+                    homeMode = homeModes.DONE;
                 }
                 break;
-            case HALL_EFFECT_SEARCH:
+            case MOVE_REVERSE:
                 io.setVoltage(-2.0);
+                deltaPosition = Math.abs(inputs.positionRads - lastPosition);
+                lastPosition = inputs.positionRads;
+                if (deltaPosition < 0.001) {
+                    stillCounter++;
+                } else {
+                    stillCounter = 0;
+                }
+                if(stillCounter > 50){
+                    io.stop();
+                    stillCounter = 0;
+                    homeMode = homeModes.MOVE_FORWARD;
+                }
                 if(inputs.hallEffectTriggered){
                     io.stop();
                     io.zeroEncoder();
@@ -121,8 +139,9 @@ public class Turret extends SubsystemBase {
         botToHubX = hubPose.getX() - botPose.getX();
         botToHubY = hubPose.getY() - botPose.getY();
 
-        double angleToHub = Math.atan2(botToHubY, botToHubX);
-        io.setPosition(angleToHub);
+        double botAngleToHub = Math.atan2(botToHubY, botToHubX);
+        double setPoint = botAngleToHub - hubPose.getZ();
+        io.setPosition(setPoint);
     }
 
     public void targetFeed(){
